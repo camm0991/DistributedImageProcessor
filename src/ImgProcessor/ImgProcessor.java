@@ -98,6 +98,26 @@ public class ImgProcessor implements ImageProcessorLink, Processor {
     }
 
     @Override
+    public byte[] imageSepia(byte[] img) throws RemoteException {
+        ByteArrayInputStream inputStream;
+        ByteArrayOutputStream outputStream;
+        BufferedImage bufferedImage;
+
+        try {
+            inputStream = new ByteArrayInputStream(img);
+            bufferedImage = new ImageFilters().ToSepia(ImageIO.read(inputStream));
+            outputStream = new ByteArrayOutputStream();
+            ImageIO.write(bufferedImage, "jpg", outputStream);
+            System.out.println("Jobs done: " + String.valueOf(++imagesProcessed));
+            return outputStream.toByteArray();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public Double processorPower() throws RemoteException {
         return processingPower;
     }

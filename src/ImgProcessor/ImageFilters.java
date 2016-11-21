@@ -9,27 +9,17 @@ import java.awt.image.BufferedImage;
  */
 public class ImageFilters {
 
-    public BufferedImage ToNegative(BufferedImage Bimg){
-        long time0 = System.nanoTime();
-        //BufferedImage bi = new BufferedImage(Bimg.getWidth(), Bimg.getHeight(), Bimg.getType());
-        for (int x = 0; x < Bimg.getWidth(); x++) {
-            for (int y = 0; y < Bimg.getHeight(); y++) {
-                Color c = new Color(Bimg.getRGB(x, y));
-                int r = c.getRed();
-                int g = c.getGreen();
-                int b = c.getBlue();
-                r=255-r;
-                g=255-g;
-                b=255-b;
-                Bimg.setRGB(x, y, new Color(r, g, b).getRGB());
+    BufferedImage ToNegative(BufferedImage image){
+        for (int x = 0; x < image.getWidth(); x++) {
+            for (int y = 0; y < image.getHeight(); y++) {
+                Color color = new Color(image.getRGB(x, y));
+                image.setRGB(x, y, new Color(255 - color.getRed(), 255 - color.getGreen(), 255 - color.getBlue()).getRGB());
             }
         }
-        System.out.println((System.nanoTime() - time0) / 1000000000.0);
-        return Bimg;
+        return image;
     }
     
-    public BufferedImage ToGreyScale(BufferedImage Bimg){
-        long time0 = System.nanoTime();
+    BufferedImage ToGreyScale(BufferedImage Bimg){
         BufferedImage bi = new BufferedImage(Bimg.getWidth(), Bimg.getHeight(), Bimg.getType());
         for (int x = 0; x < Bimg.getWidth(); x++) {
             for (int y = 0; y < Bimg.getHeight(); y++) {
@@ -38,7 +28,22 @@ public class ImageFilters {
                 bi.setRGB(x, y, new Color(px, px, px).getRGB());
             }
         }
-        System.out.println((System.nanoTime() - time0) / 1000000000.0);
         return bi;
+    }
+
+    BufferedImage ToSepia(BufferedImage image){
+        for (int x = 0; x < image.getWidth(); x++) {
+            for (int y = 0; y < image.getHeight(); y++) {
+                Color color = new Color(image.getRGB(x, y));
+                Double sepiaR = (0.393 * color.getRed() + 0.769 * color.getGreen() + 0.189 * color.getBlue());
+                Double sepiaG = (0.349 * color.getRed() + 0.686 * color.getGreen() + 0.168 * color.getBlue());
+                Double sepiaB = (0.272 * color.getRed() + 0.534 * color.getGreen() + 0.131 * color.getBlue());
+                int sepiaRValue = (sepiaR > 255.0) ? 255 : sepiaR.intValue();
+                int sepiaGValue = (sepiaB > 255.0) ? 255 : sepiaG.intValue();
+                int sepiaBValue = (sepiaB > 255.0) ? 255 : sepiaB.intValue();
+                image.setRGB(x, y, new Color(sepiaRValue, sepiaGValue, sepiaBValue).getRGB());
+            }
+        }
+        return image;
     }
 }
