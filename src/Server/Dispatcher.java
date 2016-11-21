@@ -20,19 +20,19 @@ import java.util.*;
  */
 public class Dispatcher implements Processor, CallServer, Runnable {
 
-    private static ArrayList<Registry> processorList = new ArrayList<Registry>();
+    private static ArrayList<Registry> processorList = new ArrayList<>();
     private static double processingPower;
     private static Hashtable<Integer, String> options;
     private static int metaH;
     private static boolean processing;
 
 
-    Dispatcher() {
+    private Dispatcher() {
     }
 
     public static void main(String[] p) {
         //Init default metaheuristic and options table
-        options = new Hashtable<Integer, String>();
+        options = new Hashtable<>();
         options.put(1, "Tabu");
         options.put(2, "Genetic");
         options.put(3, "SimulatedA");
@@ -120,19 +120,11 @@ public class Dispatcher implements Processor, CallServer, Runnable {
     }
 
     //Dynamic class loader for the Server console
-    public static MetaHeuristics activeOne(ArrayList<Double> arg1, ArrayList<Integer> arg2) {
+    private static MetaHeuristics activeOne(ArrayList<Double> arg1, ArrayList<Integer> arg2) {
         try {
             Class<?> ChosenMetaheuristic = Class.forName("MetaheuristicsAndTools." + options.get(metaH) + "." + options.get(metaH));
             return (MetaHeuristics) ChosenMetaheuristic.getConstructor(ArrayList.class, ArrayList.class).newInstance(arg1, arg2);
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return null;
@@ -156,7 +148,7 @@ public class Dispatcher implements Processor, CallServer, Runnable {
     public ArrayList<Remote> getProcessor(ArrayList<Integer> imageWeights) throws RemoteException {
         try {
             processing = true;
-            ArrayList<Double> pPower = new ArrayList<Double>();
+            ArrayList<Double> pPower = new ArrayList<>();
             for (Registry i : processorList) {
                 ImageProcessorLink p = (ImageProcessorLink) i.lookup("ImageProcessorLink");
                 pPower.add(processingPower / p.processorPower());
@@ -166,8 +158,9 @@ public class Dispatcher implements Processor, CallServer, Runnable {
             //Here we call the metaheuristic
             System.out.println("Used metaheuristic: " + options.get(metaH));
             MetaHeuristics mH = activeOne(pPower, imageWeights);
-            ArrayList<Integer> assignment = new ArrayList<Integer>(mH.runTechnique());
-            ArrayList<Remote> pAssignment = new ArrayList<Remote>();
+            assert mH != null;
+            ArrayList<Integer> assignment = new ArrayList<>(mH.runTechnique());
+            ArrayList<Remote> pAssignment = new ArrayList<>();
             for (Integer i : assignment) {
                 pAssignment.add(processorList.get(i).lookup("ImageProcessorLink"));
             }

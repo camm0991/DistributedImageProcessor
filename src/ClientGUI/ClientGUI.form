@@ -76,9 +76,9 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="e0f87" class="javax.swing.JLabel" binding="processedImageBox">
+          <component id="d533e" class="javax.swing.JLabel" binding="unprocessedImageBox">
             <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false">
                 <minimum-size width="300" height="250"/>
                 <preferred-size width="300" height="250"/>
                 <maximum-size width="300" height="250"/>
@@ -88,9 +88,9 @@
               <text value=""/>
             </properties>
           </component>
-          <component id="d533e" class="javax.swing.JLabel" binding="unprocessedImageBox">
+          <component id="e0f87" class="javax.swing.JLabel" binding="processedImageBox">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="3" use-parent-layout="false">
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false">
                 <minimum-size width="300" height="250"/>
                 <preferred-size width="300" height="250"/>
                 <maximum-size width="300" height="250"/>
@@ -121,7 +121,7 @@
           </grid>
         </constraints>
         <properties>
-          <text value="Test Connection"/>
+          <text value="Connect to server"/>
         </properties>
       </component>
       <component id="9b9f6" class="javax.swing.JLabel" binding="serverConnectionMessage">
@@ -158,7 +158,11 @@
       </component>
       <component id="6529" class="javax.swing.JComboBox" binding="filterList">
         <constraints>
-          <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <minimum-size width="200" height="30"/>
+            <preferred-size width="200" height="30"/>
+            <maximum-size width="200" height="30"/>
+          </grid>
         </constraints>
         <properties/>
       </component>

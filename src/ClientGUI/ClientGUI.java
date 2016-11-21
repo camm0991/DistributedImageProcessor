@@ -33,12 +33,12 @@ public class ClientGUI {
     private JButton processImagesButton;
     private JTextField serverIPValue;
     private JTextField serverPortValue;
-    private JComboBox filterList;
+    private JComboBox<String> filterList;
     private JLabel serverIPLabel;
     private JLabel portLabel;
     private JLabel filterLabel;
-    private JList loadedImagesList;
-    private JList processedImagesList;
+    private JList<Path> loadedImagesList;
+    private JList<BufferedImage> processedImagesList;
     private JLabel unprocessedImageBox;
     private JButton serverTestConnectionButton;
     private JLabel serverConnectionMessage;
